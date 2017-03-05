@@ -1,0 +1,54 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+        <link rel="stylesheet" href="./modal-lodash.css">
+    </head>
+    <body>
+
+        <ul>
+            <li>
+                <a class="js-ml-trigger" href="">
+                    Trigger
+                    <input type="hidden" value="">
+                </a>
+            </li>
+            <li>
+                <a class="js-ml-trigger" href="">
+                    Trigger
+                    <input type="hidden"
+                           data-title="TEST"
+                           data-description="This is a sample text.This is a sample text.This is a sample text."
+                           data-image="http://placehold.it/350x150"
+                    >
+                </a>
+            </li>
+        </ul>
+
+        <script type="text/template" id="js-ml-template">
+            <aside class="modal">
+                <div class="modal-contents">
+                    <h1>{{= title }}</h1>
+                    <p>{{= description }}</p>
+                    <img src="{{= image }}" alt="">
+                </div>
+                <a class="modal-back" href="javascript:void(0);"></a>
+            </aside>
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+        <script src="./modal-lodash.js"></script>
+        <script>
+            var myModalLodash = new ModalLodash({
+                trigger: 'js-ml-trigger'
+            });
+        </script>
+    </body>
+</html>
