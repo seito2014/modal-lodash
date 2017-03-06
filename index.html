@@ -37,9 +37,7 @@
 
         <div class="ml-modal" id="js-ml-modal">
             <div class="ml-modal-contents">
-                <div class="ml-modal-inner" id="js-ml-output">
-
-                </div>
+                <div class="ml-modal-inner" id="js-ml-output"></div>
                 <button class="ml-modal-button ml-modal-button-left js-ml-left" type="button"></button>
                 <button class="ml-modal-button ml-modal-button-right  js-ml-right" type="button"></button>
                 <button class="ml-modal-button ml-modal-button-close js-ml-close"></button>
@@ -49,9 +47,9 @@
 
         <script type="text/template" id="js-ml-template">
             <aside class="ml-modal-item">
+                <img src="{{= image }}" alt="">
                 <h1>{{= title }}</h1>
                 <p>{{= description }}</p>
-                <img src="{{= image }}" alt="">
             </aside>
         </script>
 

@@ -1,4 +1,9 @@
+@import "modal-lodash-animation";
+
 .ml-modal {
+
+    $this: &;
+
     $z-max: 100;
     $back-color: rgba(#000, .7);
 
@@ -19,9 +24,6 @@
         transform: translate3d(-50%, -50%, 0);
     }
     &-inner {
-        border: 2px solid #ccc;
-        padding: 20px;
-        background-color: #fff;
     }
     &-back {
         position: absolute;
@@ -76,7 +78,7 @@
                 transform: rotate(45deg);
             }
             &:after {
-                transform: rotate(-45deg);
+                transform: rotate(-45deg) translate(1px,-1px);
             }
         }
 
@@ -94,6 +96,13 @@
         //state
         &.is-active {
             display: block;
+        }
+    }
+
+    //animation
+    &.is-active {
+        #{$this}-contents {
+            top: 50%;
         }
     }
 }

@@ -47,7 +47,6 @@
             var $data = $(trigger).find('input');
             var modalHtml = self.compile($data.data());
 
-            console.log(modalHtml);
             $(self.$output).append(modalHtml);
         };
 
@@ -96,7 +95,9 @@
 
         var handleClick = {
             openModal: function(trigger){
-                self.$modal.fadeIn();
+                self.$modal.fadeIn(0, function(){
+                    $(this).addClass(self.activeClass);
+                });
 
                 toggleItem.hide(self.index);
 
@@ -108,10 +109,12 @@
                 ctrlDisableClass();
             },
             closeModal: function(){
-                self.$modal.fadeOut();
+                self.$modal.removeClass(self.activeClass);
+                self.$modal.one('animationend', function(){
+                    $(this).hide();
+                });
             },
             movePrev: function(){
-                console.log('hello');
                 toggleItem.hide(self.index);
                 if(self.index > 0){
                     self.index--;
@@ -122,7 +125,6 @@
                 ctrlDisableClass();
             },
             moveNext: function(){
-                console.log('hello');
                 toggleItem.hide(self.index);
                 if(self.index < self.itemLength - 1){
                     self.index++;
