@@ -14,14 +14,6 @@
 
         this.activeClass = params.activeClass ? params.activeClass : 'is-active';
 
-        // this.template = params.template ? params.template : 'js-ml-template';
-
-        // var self = this;
-
-        // this._drawHandler = function() {
-        //     self.drawMap();
-        // };
-
         //lodash
         this.template = _.template;
         this.templateSettings = _.templateSettings;
@@ -31,13 +23,18 @@
         this.$template = params.template ? $('#'+params.template) : $('#js-ml-template');
         this.compile = this.template(this.$template.html());
 
+        //index
+        this.$index;
+
         window.addEventListener('load', this._init(this));
     };
 
     //発火
     ModalLodash.prototype._init = function(self){
         this.setUp(self);
+        this.manageIndex(self);
         this.action(self);
+        console.log(self.$index);
     };
 
     ModalLodash.prototype.setUp = function(self) {
@@ -61,17 +58,36 @@
         }
 
         self.$item = self.$modal.find(self.item);
+        self.$index = self.$item.eq(0);
+    };
+
+    ModalLodash.prototype.manageIndex = function(self) {
+
+        var self = self;
+
+        // self.index
+
     };
 
     ModalLodash.prototype.action = function(self) {
 
         var self = self;
 
+        var memorise = function(index){
+            self.$index = self.$item.eq(index);
+        };
+
+        var toggleModalItem = function($elm){
+            self.$index.removeClass(self.activeClass);
+            $elm.addClass(self.activeClass);
+        };
+
         var handleClick = {
             openModal: function(trigger){
                 self.$modal.fadeIn();
                 var index = self.$trigger.index(trigger);
-                self.$item.eq(index).addClass(self.activeClass);
+                toggleModalItem(self.$item.eq(index));
+                memorise(index);
             },
             closeModal: function(){
                 self.$modal.fadeOut();
