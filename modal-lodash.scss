@@ -79,11 +79,19 @@
                 transform: rotate(-45deg);
             }
         }
+
+        //state
+        &.is-disable {
+            opacity: .3;
+            outline: 0;
+            cursor: default;
+        }
     }
 
     &-item {
         display: none;
 
+        //state
         &.is-active {
             display: block;
         }
