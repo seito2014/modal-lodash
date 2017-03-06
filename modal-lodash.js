@@ -24,7 +24,7 @@
         this.compile = this.template(this.$template.html());
 
         //index
-        this.$index;
+        this.index = 0;
 
         window.addEventListener('load', this._init(this));
     };
@@ -34,7 +34,6 @@
         this.setUp(self);
         this.manageIndex(self);
         this.action(self);
-        console.log(self.$index);
     };
 
     ModalLodash.prototype.setUp = function(self) {
@@ -58,7 +57,9 @@
         }
 
         self.$item = self.$modal.find(self.item);
-        self.$index = self.$item.eq(0);
+
+        //add active class to the fist item
+        self.$item.eq(self.index).addClass(self.activeClass);
     };
 
     ModalLodash.prototype.manageIndex = function(self) {
@@ -73,24 +74,48 @@
 
         var self = self;
 
-        var memorise = function(index){
-            self.$index = self.$item.eq(index);
+        var memoriseIndex = function(number){
+            self.index = number;
         };
 
         var toggleModalItem = function($elm){
-            self.$index.removeClass(self.activeClass);
-            $elm.addClass(self.activeClass);
+            // self.$item.eq(index).addlass(self.activeClass);
+            // $elm.addClass(self.activeClass);
+
+            //remove the active class from the previous index item
+            self.$item.eq(self.index).removeClass(self.activeClass);
+
+            var index = self.$trigger.index($elm);
+            memoriseIndex(index);
+
+            //add the active class to the new index item
+            self.$item.eq(self.index).addClass(self.activeClass);
         };
 
         var handleClick = {
             openModal: function(trigger){
                 self.$modal.fadeIn();
-                var index = self.$trigger.index(trigger);
-                toggleModalItem(self.$item.eq(index));
-                memorise(index);
+                toggleModalItem($(trigger));
+                //
+                // //remove the active class from the previous index item
+                // self.$item(self.index).removeClass(self.activeClass);
+                //
+                // //overwrite index
+                // var index = self.$trigger.index(trigger);
+                // memoriseIndex(index);
+                //
+                // //add the active class to the new index item
+                //
+                //
+                //
+                // toggleModalItem(self.$item.eq(index));
+                // memoriseIndex(index);
             },
             closeModal: function(){
                 self.$modal.fadeOut();
+            },
+            movePrev: function(){
+                toggleModalItem();
             }
         };
 
