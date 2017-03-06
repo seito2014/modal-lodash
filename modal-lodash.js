@@ -8,8 +8,10 @@
         this.$close = params.close ? $(params.close) : $('.js-ml-close');
         this.$modal = params.modal ? $(params.modal) : $('#js-ml-modal');
         this.$output = params.output ? $(params.output) : $('#js-ml-output');
+        this.$buttonLeft = params.buttonLeft ? $(params.buttonLeft) : $('.js-ml-left');
+        this.$buttonRight = params.buttonRight ? $(params.buttonRight) : $('.js-ml-right');
+
         this.item = params.item ? params.item : '.ml-modal-item';
-        // this.$item = params.item ? this.$modal.find(params.item) : this.$modal.find('.ml-modal-item');
         this.$item;
 
         this.activeClass = params.activeClass ? params.activeClass : 'is-active';
@@ -22,6 +24,9 @@
 
         this.$template = params.template ? $('#'+params.template) : $('#js-ml-template');
         this.compile = this.template(this.$template.html());
+
+        //item length
+        this.itemLength;
 
         //index
         this.index = 0;
@@ -49,9 +54,9 @@
             $(self.$output).append(modalHtml);
         };
 
-        var itemLength = self.$trigger.length;
+        self.itemLength = self.$trigger.length;
         var i = 0;
-        while (i < itemLength) {
+        while (i < self.itemLength) {
             createModalItems(self.$trigger.eq(i));
             i += 1;
         }
@@ -63,59 +68,58 @@
     };
 
     ModalLodash.prototype.manageIndex = function(self) {
-
         var self = self;
-
-        // self.index
-
     };
 
     ModalLodash.prototype.action = function(self) {
 
         var self = self;
 
-        var memoriseIndex = function(number){
-            self.index = number;
-        };
-
-        var toggleModalItem = function($elm){
-            // self.$item.eq(index).addlass(self.activeClass);
-            // $elm.addClass(self.activeClass);
-
-            //remove the active class from the previous index item
-            self.$item.eq(self.index).removeClass(self.activeClass);
-
-            var index = self.$trigger.index($elm);
-            memoriseIndex(index);
-
-            //add the active class to the new index item
-            self.$item.eq(self.index).addClass(self.activeClass);
+        var toggleItem = {
+            memoriseIndex: function(number){ //memorise current index
+                self.index = number;
+            }, //remove the active class from the previous index item
+            hide: function(index){
+                self.$item.eq(index).removeClass(self.activeClass);
+            }, //add the active class to the new index item
+            show: function(index){
+                self.$item.eq(index).addClass(self.activeClass);
+                console.log(self.$item.eq(index));
+            }
         };
 
         var handleClick = {
             openModal: function(trigger){
                 self.$modal.fadeIn();
-                toggleModalItem($(trigger));
-                //
-                // //remove the active class from the previous index item
-                // self.$item(self.index).removeClass(self.activeClass);
-                //
-                // //overwrite index
-                // var index = self.$trigger.index(trigger);
-                // memoriseIndex(index);
-                //
-                // //add the active class to the new index item
-                //
-                //
-                //
-                // toggleModalItem(self.$item.eq(index));
-                // memoriseIndex(index);
+
+                toggleItem.hide(self.index);
+
+                //memorize index of the clicked trigger
+                var index = self.$trigger.index($(trigger));
+                toggleItem.memoriseIndex(index);
+
+                toggleItem.show(self.index);
             },
             closeModal: function(){
                 self.$modal.fadeOut();
             },
             movePrev: function(){
-                toggleModalItem();
+                toggleItem.hide(self.index);
+                if(self.index > 0){
+                    self.index--;
+                } else {
+                    self.index = 0;
+                }
+                toggleItem.show(self.index);
+            },
+            moveNext: function(){
+                toggleItem.hide(self.index);
+                if(self.index < self.itemLength - 1){
+                    self.index++;
+                } else {
+                    self.index = self.itemLength - 1;
+                }
+                toggleItem.show(self.index);
             }
         };
 
@@ -126,6 +130,14 @@
         self.$close.on('click', function(e){
             e.preventDefault();
             handleClick.closeModal();
+        });
+        self.$buttonLeft.on('click', function(e){
+            e.preventDefault();
+            handleClick.movePrev();
+        });
+        self.$buttonRight.on('click', function(e){
+            e.preventDefault();
+            handleClick.moveNext();
         });
     };
 
