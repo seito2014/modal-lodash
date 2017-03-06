@@ -1,0 +1,96 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+        <link rel="stylesheet" href="./modal-lodash.css">
+    </head>
+    <body>
+
+        <ul>
+            <li>
+                <a class="js-ml-trigger" href="">
+                    Trigger
+                    <input type="hidden"
+                           data-title="HELLO"
+                           data-description="This is a sample text.This is a sample text.This is a sample text."
+                           data-image="http://placehold.it/250x250"
+                           data-link="#0"
+                    >
+                </a>
+            </li>
+            <li>
+                <a class="js-ml-trigger" href="">
+                    Trigger
+                    <input type="hidden"
+                           data-title="TEST"
+                           data-description="This is a sample text.This is a sample text.This is a sample text."
+                           data-image="http://placehold.it/350x150"
+                           data-link="#1"
+                    >
+                </a>
+            </li>
+        </ul>
+
+        <div class="ml-modal" id="js-ml-modal">
+            <div class="ml-modal-contents">
+                <div class="ml-modal-inner" id="js-ml-output">
+
+                </div>
+                <button class="ml-modal-button ml-modal-button-left js-ml-left" type="button"></button>
+                <button class="ml-modal-button ml-modal-button-right  js-ml-right" type="button"></button>
+                <button class="ml-modal-button ml-modal-button-close js-ml-close"></button>
+            </div>
+            <a class="ml-modal-back js-ml-close" href="javascript:void(0);"></a>
+        </div>
+
+        <script type="text/template" id="js-ml-template">
+            <aside class="ml-modal-item">
+                <img src="" alt="">
+                <h1>{{= title }}</h1>
+                <p>{{= description }}</p>
+            </aside>
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+        <script src="./modal-lodash.js"></script>
+        <script>
+            var myModalLodash = new ModalLodash({
+                trigger: '.js-ml-trigger',
+                contents: [
+                    {
+                        data: 'title',
+                        tag: {
+                            start: '<h1>',
+                            end: '</h1>'
+                        }
+                    }, {
+                        data: 'description',
+                        tag: {
+                            start: '<p>',
+                            end: '</p>'
+                        }
+                    }, {
+                        data: 'image',
+                        tag: {
+                            start: '<img src="',
+                            end: '" alt="">'
+                        }
+                    }, {
+                        data: 'link',
+                        tag: {
+                            start: '<a href="',
+                            end: '">商品詳細へ</a>'
+                        }
+                    }
+                ]
+            });
+        </script>
+    </body>
+</html>

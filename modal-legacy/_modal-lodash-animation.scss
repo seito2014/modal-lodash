@@ -1,0 +1,58 @@
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 10%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+@keyframes fadeOutUp {
+    0% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(0, 10%, 0);
+    }
+}
+
+
+.ml-modal {
+    opacity: 0;
+    animation: fadeOut .5s both;
+
+    //animation
+    &.is-active {
+        animation: fadeIn .5s both;
+    }
+
+    &-item {
+        opacity: 0;
+        transform: translate3d(0, -10%, 0);
+        animation: fadeOutUp .5s both;
+
+        //animation
+        &.is-active {
+            animation: fadeInUp .5s both;
+        }
+    }
+}
