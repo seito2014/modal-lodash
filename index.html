@@ -16,7 +16,11 @@
             <li>
                 <a class="js-ml-trigger" href="">
                     Trigger
-                    <input type="hidden" value="">
+                    <input type="hidden"
+                           data-title="HELLO"
+                           data-description="This is a sample text.This is a sample text.This is a sample text."
+                           data-image="http://placehold.it/250x250"
+                    >
                 </a>
             </li>
             <li>
@@ -31,14 +35,23 @@
             </li>
         </ul>
 
-        <script type="text/template" id="js-ml-template">
-            <aside class="modal">
-                <div class="modal-contents">
-                    <h1>{{= title }}</h1>
-                    <p>{{= description }}</p>
-                    <img src="{{= image }}" alt="">
+        <div class="ml-modal" id="js-ml-modal">
+            <div class="ml-modal-contents">
+                <div class="ml-modal-inner" id="js-ml-output">
+
                 </div>
-                <a class="modal-back" href="javascript:void(0);"></a>
+                <button class="ml-modal-button ml-modal-button-left" type="button"></button>
+                <button class="ml-modal-button ml-modal-button-right" type="button"></button>
+                <button class="ml-modal-button ml-modal-button-close js-ml-close"></button>
+            </div>
+            <a class="ml-modal-back js-ml-close" href="javascript:void(0);"></a>
+        </div>
+
+        <script type="text/template" id="js-ml-template">
+            <aside class="ml-modal-item">
+                <h1>{{= title }}</h1>
+                <p>{{= description }}</p>
+                <img src="{{= image }}" alt="">
             </aside>
         </script>
 
@@ -47,7 +60,7 @@
         <script src="./modal-lodash.js"></script>
         <script>
             var myModalLodash = new ModalLodash({
-                trigger: 'js-ml-trigger'
+                trigger: '.js-ml-trigger'
             });
         </script>
     </body>
